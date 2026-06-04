@@ -1,5 +1,5 @@
 import asyncio
-import websockets
+import websockets as wso
 
 clients = set()
 
@@ -10,13 +10,13 @@ async def handle(ws):
             await asyncio.gather(*[
                 c.send(msg) for c in clients if c != ws
             ])
-    except websockets.exceptions.ConnectionClosed:
+    except wso.exceptions.ConnectionClosed:
         pass
     finally:
         clients.remove(ws)
 
 async def main():
-    async with websockets.serve(handle, "localhost", 6789):
+    async with wso.serve(handle, "localhost", 6789):
         print("ws://localhost:6789")
         await asyncio.Future()  # Run forever
 
