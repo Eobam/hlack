@@ -1,5 +1,8 @@
 import asyncio
 import websockets as wso
+import threading
+
+
 
 clients = set()
 
@@ -15,9 +18,15 @@ async def handle(ws):
     finally:
         clients.remove(ws)
 
+def give_html():
+    import http.server, socketserver
+    with socketserver.TCPServer(("", 8000), SimpleHTTPRequestHandler) as httpd:
+        httpd.serve_forever()
+
+        
 async def main():
-    async with wso.serve(handle, "localhost", 6789):
-        print("ws://localhost:6789")
+    async with wso.serve(handle, "localhost", 8080):
+        print("ws://localhost:8080")
         await asyncio.Future()  # Run forever
 
 if __name__ == "__main__":
