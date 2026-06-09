@@ -26,4 +26,4 @@ return Math.floor(Math.random() * (maxFloored - minCeiled + 1)) + minCeiled;
 create_newchannel_butt.addEventListener('click', function() {
 nchannelws = rws
 
-}
+} )
